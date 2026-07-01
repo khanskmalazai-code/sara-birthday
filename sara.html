@@ -1,0 +1,38 @@
+<script>
+const target = new Date("July 2, 2026 00:00:00").getTime();
+
+const timer = setInterval(function () {
+
+    const now = new Date().getTime();
+    const distance = target - now;
+
+    if (distance <= 0) {
+        clearInterval(timer);
+
+        // Hide countdown page
+        document.getElementById("countdownPage").style.display = "none";
+
+        // Show surprise page
+        document.getElementById("birthdayPage").style.display = "flex";
+
+        // Play music (if you add song.mp3)
+        const music = document.getElementById("music");
+        if (music) {
+            music.play().catch(() => {});
+        }
+
+        // Start fireworks
+        startFireworks();
+
+        return;
+    }
+
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("timer").innerHTML =
+        hours + "h " + minutes + "m " + seconds + "s";
+
+}, 1000);
+</script>
